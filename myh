@@ -1,0 +1,1482 @@
+#!/bin/sh
+#Colours
+red="\033[00;31m"
+RED="\033[01;31m"
+
+green="\033[00;32m"
+GREEN="\033[01;32m"
+
+brown="\033[00;33m"
+YELLOW="\033[01;33m"
+
+blue="\033[00;34m"
+BLUE="\033[01;34m"
+
+purple="\033[00;35m"
+PURPLE="\033[01;35m"
+
+cyan="\033[00;36m"
+CYAN="\033[01;36m"
+
+white="\033[00;37m"
+WHITE="\033[01;37m"
+NC="\033[00m"
+HOSTNAME=$(uname -n)
+while :; do
+	clear
+	echo ""
+	cat <<'EOF'
+                      /^--^\     /^--^\     /^--^\
+                      \____/     \____/     \____/
+                     /      \   /      \   /      \
+   Myh St           |        | |        | |        |
+                     \__  __/   \__  __/   \__  __/
+|^|^|^|^|^|^|^|^|^|^|^|^\ \^|^|^|^/ /^|^|^|^|^\ \^|^|^|^|^|^|^|^|^|^|^|^|
+| | | | | | | | | | | | |\ \| | |/ /| | | | | | \ \ | | | | | | | | | | |
+########################/ /######\ \###########/ /#######################
+| | | | | | | | | | | | \/| | | | \/| | | | | |\/ | | | | | | | | | | | |
+|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|
+EOF
+	echo ""
+	echo -e "${WHITE} Welcome ${red}${USER} ${GREEN} to the${WHITE}${blue} ${HOSTNAME}"
+	echo -e "${NC}"
+	echo "   1) Install Nodejs "
+	echo "   2) Install Meteor "
+	echo "   3) Install MongoDB 3.4,3.6 "
+	echo "   4) Install Mongo Studio "
+	echo "   5) Install Rockmongo "
+	echo "   6) Install Node-Red+Authentication "
+	echo "   7) Install InfluxDB "
+	echo "   8) Install CouchDB "
+	echo "   9) Install Grafana "
+	echo "  10) Install OpenTSDB "
+	echo "  11) Install ELK "
+	echo "  12) Install OpenVPN "
+	echo "  13) Install Jasper Server "
+	echo "  14) Install Android SDK "
+	echo "  20) Install Devtools "
+	echo "  30) Exit"
+	echo ""
+	read -p "Select an option [1-30]: " option
+	echo ""
+	case $option in
+	1)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+███╗   ██╗ ██████╗ ██████╗ ███████╗     ██╗███████╗
+████╗  ██║██╔═══██╗██╔══██╗██╔════╝     ██║██╔════╝
+██╔██╗ ██║██║   ██║██║  ██║█████╗       ██║███████╗
+██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██   ██║╚════██║
+██║ ╚████║╚██████╔╝██████╔╝███████╗╚█████╔╝███████║
+╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝ ╚════╝ ╚══════╝                                                                                               
+EOF
+			echo ""
+			echo ""
+			echo "   1) Install Nodejs version 6.x? "
+			echo "   2) Install Nodejs version 8.x? "
+			echo "   3) Install Nodejs version 9.x? "
+			echo "   4) exit"
+			echo ""
+			read -p "Select an option [1-4]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Nodejs 6.x? [y/n]: " -e -i n SETUPNODE
+				if [[ "$SETUPNODE" == 'y' ]]; then
+					if [[ ! -e /usr/bin/node ]]; then
+						rm -f /etc/yum.repos.d/nodesource-el*
+						yum clean all && rm -rf /var/cache/yum
+					fi
+					curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
+					yum -y install nodejs
+					npm install -g iron-meteor
+				fi
+				exit
+				;;
+			2)
+				read -p "Do you want to install Nodejs 8.x? [y/n]: " -e -i n SETUPNODE
+				if [[ "$SETUPNODE" == 'y' ]]; then
+					if [[ ! -e /usr/bin/node ]]; then
+						rm -f /etc/yum.repos.d/nodesource-el*
+						yum clean all && rm -rf /var/cache/yum
+					fi
+					curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+					yum -y install nodejs
+					npm install -g iron-meteor
+				fi
+				exit
+				;;
+			3)
+				read -p "Do you want to install Nodejs 9.x? [y/n]: " -e -i n SETUPNODE
+				if [[ "$SETUPNODE" == 'y' ]]; then
+					if [[ ! -e /usr/bin/node ]]; then
+						rm -f /etc/yum.repos.d/nodesource-el*
+						yum clean all && rm -rf /var/cache/yum
+					fi
+					curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+					yum -y install nodejs
+					npm install -g iron-meteor
+				fi
+				exit
+				;;
+			4)
+
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	2)
+		read -p "Do you want to install Meteor? [y/n]: " -e -i n SETUPMETEOR
+		if [[ "$SETUPMETEOR" == 'y' ]]; then
+			curl https://install.meteor.com/ | sh
+			useradd meteor
+		fi
+		echo ""
+		exit
+		;;
+	3)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+███╗   ███╗ ██████╗ ███╗   ██╗ ██████╗  ██████╗ 
+████╗ ████║██╔═══██╗████╗  ██║██╔════╝ ██╔═══██╗
+██╔████╔██║██║   ██║██╔██╗ ██║██║  ███╗██║   ██║
+██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║██║   ██║
+██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝╚██████╔╝
+╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝                                                                                           
+EOF
+			echo ""
+			echo ""
+			echo "   1) Install MongoDB version 3.4? "
+			echo "   2) Install MongoDB version 3.6? "
+			echo "   3) exit"
+			echo ""
+			read -p "Select an option [1-3]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install MongoDB-3.4? [y/n]: " -e -i n SETUPMONGO
+				if [[ "$SETUPMONGO" == 'y' ]]; then
+					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
+					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+					setenforce 0
+					echo [mongodb-org-3.4] >/etc/yum.repos.d/mongodb-org-3.4.repo
+					echo name=MongoDB Repository >>/etc/yum.repos.d/mongodb-org-3.4.repo
+					echo baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/3.4/x86_64/ >>/etc/yum.repos.d/mongodb-org-3.4.repo
+					echo gpgcheck=1 >>/etc/yum.repos.d/mongodb-org-3.4.repo
+					echo enabled=1 >>/etc/yum.repos.d/mongodb-org-3.4.repo
+					echo gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc >>/etc/yum.repos.d/mongodb-org-3.4.repo
+					yum install mongodb-org -y
+					service mongod start
+					chkconfig mongod on
+				fi
+				exit
+				;;
+			2)
+				read -p "Do you want to install MongoDB-3.6? [y/n]: " -e -i n SETUPMONGO
+				if [[ "$SETUPMONGO" == 'y' ]]; then
+					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
+					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+					setenforce 0
+					echo [mongodb-org-3.6] >/etc/yum.repos.d/mongodb-org-3.6.repo
+					echo name=MongoDB Repository >>/etc/yum.repos.d/mongodb-org-3.6.repo
+					echo baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/3.6/x86_64/ >>/etc/yum.repos.d/mongodb-org-3.6.repo
+					echo gpgcheck=1 >>/etc/yum.repos.d/mongodb-org-3.6.repo
+					echo enabled=1 >>/etc/yum.repos.d/mongodb-org-3.6.repo
+					echo gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc >>/etc/yum.repos.d/mongodb-org-3.6.repo
+					yum install mongodb-org -y
+					service mongod start
+					chkconfig mongod on
+				fi
+				exit
+				;;
+
+			3)
+
+				exit
+				;;
+			esac
+		done
+		exit
+		;;
+	4)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+███╗   ███╗ ██████╗ ███╗   ██╗ ██████╗  ██████╗     ███████╗████████╗██╗   ██╗██████╗ ██╗ ██████╗ 
+████╗ ████║██╔═══██╗████╗  ██║██╔════╝ ██╔═══██╗    ██╔════╝╚══██╔══╝██║   ██║██╔══██╗██║██╔═══██╗
+██╔████╔██║██║   ██║██╔██╗ ██║██║  ███╗██║   ██║    ███████╗   ██║   ██║   ██║██║  ██║██║██║   ██║
+██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║██║   ██║    ╚════██║   ██║   ██║   ██║██║  ██║██║██║   ██║
+██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝╚██████╔╝    ███████║   ██║   ╚██████╔╝██████╔╝██║╚██████╔╝
+╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝     ╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝                                                                                                                          
+EOF
+			echo ""
+			echo "   1) Install Mongo Studio? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to Mongo Studio? [y/n]: " -e -i n SETUPMST
+				if [[ "$SETUPMST" == 'y' ]]; then
+					if [[ ! -e /usr/bin/node ]]; then
+						curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+						yum -y install nodejs
+					fi
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					fi
+					echo ""
+					git clone https://github.com/myh-st/mongst.git /opt/mongostudio
+					cat <<EOT >/etc/systemd/system/mongostudio.service
+[Unit]
+Description=mongostudio
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/node /opt/mongostudio/server.js
+Type=simple
+KillMode=process
+Restart=always
+StandardOutput=syslog               
+StandardError=syslog 
+SyslogIdentifier=mongostudio
+
+[Install]
+WantedBy=multi-user.target
+EOT
+					service mongostudio start
+					chkconfig mongostudio on
+
+					if [[ -e /etc/sysconfig/iptables ]]; then
+						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 3333 -j ACCEPT' /etc/sysconfig/iptables
+						service iptables restart
+						echo ""
+						echo "Mongo Studio running on port 3333"
+						echo "Default Username: admin Password: myh1993"
+					fi
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+		exit
+		;;
+	5)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+██████╗  ██████╗  ██████╗██╗  ██╗███╗   ███╗ ██████╗ ███╗   ██╗ ██████╗  ██████╗ 
+██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝████╗ ████║██╔═══██╗████╗  ██║██╔════╝ ██╔═══██╗
+██████╔╝██║   ██║██║     █████╔╝ ██╔████╔██║██║   ██║██╔██╗ ██║██║  ███╗██║   ██║
+██╔══██╗██║   ██║██║     ██╔═██╗ ██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║██║   ██║
+██║  ██║╚██████╔╝╚██████╗██║  ██╗██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝╚██████╔╝
+╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝                                                                                                                        
+EOF
+			echo ""
+			echo "   1) Install Rockmongo "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to Mongo Studio? [y/n]: " -e -i n SETUPRMG
+				if [[ "$SETUPRMG" == 'y' ]]; then
+					yum install httpd httpd-devel php php-mongo git -y
+					cd /var/www/html
+					git clone --depth=1 https://github.com/iwind/rockmongo.git
+					sed -i '861s/.*/extension=mongo.so/' /etc/php.ini
+					sed -i -e '31d' /var/www/html/rockmongo/config.php
+					sed -i -e '31d' /var/www/html/rockmongo/config.php
+					sed -i "31i\$MONGO[\"servers\"][\$i][\"control_auth\"] = true;" /var/www/html/rockmongo/config.php
+					sed -i "32i\$MONGO[\"servers\"][\$i][\"control_users\"][\"admin\"] = \"myh1993\";" /var/www/html/rockmongo/config.php
+					systemctl restart httpd
+					sed -i '/-A INPUT -i lo -j ACCEPT/a \
+                            -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT \
+                            -A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+		exit
+		;;
+	6)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+███╗   ██╗ ██████╗ ██████╗ ███████╗         ██████╗ ███████╗██████╗ 
+████╗  ██║██╔═══██╗██╔══██╗██╔════╝         ██╔══██╗██╔════╝██╔══██╗
+██╔██╗ ██║██║   ██║██║  ██║█████╗   █████╗  ██████╔╝█████╗  ██║  ██║
+██║╚██╗██║██║   ██║██║  ██║██╔══╝   ╚════╝  ██╔══██╗██╔══╝  ██║  ██║
+██║ ╚████║╚██████╔╝██████╔╝███████╗         ██║  ██║███████╗██████╔╝
+╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝         ╚═╝  ╚═╝╚══════╝╚═════╝ 
+EOF
+			echo ""
+			echo ""
+			echo "   1) Install Node-Red with Authentication"
+			echo "   2) Exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Node-red with Authentication [y/n]: " -e -i n SETUPNODE
+				if [[ "$SETUPNODE" == 'y' ]]; then
+					curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+					yum -y install nodejs
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 1880 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+					cd /usr/lib/node_modules
+					npm install -g node-red
+					npm install -g node-red-admin
+					npm install node-red-contrib-repeat
+					npm install node-red-contrib-redis
+					npm install node-red-contrib-mongodb3
+					npm install node-red-contrib-s7comm
+					npm install node-red-contrib-objectid
+					npm install meteor-job
+					npm install ddp
+					npm install ddp-login
+					npm install pm2
+					pm2 start /usr/bin/node-red
+					sleep 1
+					sed -i '125s/.*/adminAuth: {/' /root/.node-red/settings.js
+					sed -i '126s/.*/type: "credentials",/' /root/.node-red/settings.js
+					sed -i '127s/.*/users: [{/' /root/.node-red/settings.js
+					sed -i '128s/.*/username: "admin",/' /root/.node-red/settings.js
+					sed -i '129s/.*/password: "nrpass",/' /root/.node-red/settings.js
+					sed -i 's/nrpass/$2a$08$aimQHNCOMmsZuhFyJiHYhe33PUDfP4cJS8pjeNyqKWho2u32wqw5S/g' /root/.node-red/settings.js
+					sed -i '130s/.*/permissions: "*"/' /root/.node-red/settings.js
+					sed -i '131s/.*/}]/' /root/.node-red/settings.js
+					sed -i '132s/.*/},/' /root/.node-red/settings.js
+					pm2 startup
+					pm2 save
+					pm2 restart all
+					echo ""
+					echo "Node-Red Installation has been Completed"
+					echo "Default auth admin/myh1993"
+					echo "You can view information about the process and access the log output using the commands"
+					echo "pm2 status"
+					echo "pm2 info 0"
+					echo "pm2 logs 0"
+					echo "Restart Node-Red"
+					echo "pm2 restart 0"
+					echo ""
+				else
+					echo ""
+					echo "Installation aborted!"
+					echo ""
+				fi
+				exit
+				;;
+			2)
+				exit
+				;;
+			esac
+		done
+
+		exit
+		;;
+	7)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+██╗███╗   ██╗███████╗██╗     ██╗   ██╗██╗  ██╗
+██║████╗  ██║██╔════╝██║     ██║   ██║╚██╗██╔╝
+██║██╔██╗ ██║█████╗  ██║     ██║   ██║ ╚███╔╝ 
+██║██║╚██╗██║██╔══╝  ██║     ██║   ██║ ██╔██╗ 
+██║██║ ╚████║██║     ███████╗╚██████╔╝██╔╝ ██╗
+╚═╝╚═╝  ╚═══╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝                                                                                                                                     
+EOF
+			echo ""
+			echo "   1) Install InfluxDB version 1.9? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install InfluxDB? [y/n]: " -e -i n SETUPINFLUX
+				if [[ "$SETUPINFLUX" == 'y' ]]; then
+					echo [influxdb] >/etc/yum.repos.d/influxdb.repo
+					echo name = InfluxDB Repository - RHEL \$releasever >>/etc/yum.repos.d/influxdb.repo
+					echo baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable >>/etc/yum.repos.d/influxdb.repo
+					echo enabled = 1 >>/etc/yum.repos.d/influxdb.repo
+					echo gpgcheck = 1 >>/etc/yum.repos.d/influxdb.repo
+					echo gpgkey = https://repos.influxdata.com/influxdb.key >>/etc/yum.repos.d/influxdb.repo
+					yum install influxdb
+					service influxdb start
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	8)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+ ██████╗ ██████╗ ██╗   ██╗ ██████╗██╗  ██╗██████╗ ██████╗ 
+██╔════╝██╔═══██╗██║   ██║██╔════╝██║  ██║██╔══██╗██╔══██╗
+██║     ██║   ██║██║   ██║██║     ███████║██║  ██║██████╔╝
+██║     ██║   ██║██║   ██║██║     ██╔══██║██║  ██║██╔══██╗
+╚██████╗╚██████╔╝╚██████╔╝╚██████╗██║  ██║██████╔╝██████╔╝
+ ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝                                                                                                                                 
+EOF
+			echo ""
+			echo "   1) Install CouchDB 2.1.1? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install CouchDB 2.1.1? [y/n]: " -e -i n SETUPCDB
+				if [[ "$SETUPCDB" == 'y' ]]; then
+					cat <<EOT >/etc/yum.repos.d/bintray-apache-couchdb-rpm.repo
+[bintray--apache-couchdb-rpm]
+name=bintray--apache-couchdb-rpm
+baseurl=http://apache.bintray.com/couchdb-rpm/el\$releasever/\$basearch/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+EOT
+					yum install couchdb -y
+					chkconfig couchdb on
+					sed -i 's/bind_address = 127.0.0.1/bind_address = 0.0.0.0 /g' /opt/couchdb/etc/default.ini
+					service couchdb start
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5984 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+					echo ""
+					echo "Access CouchDB <yourIPAddress>:5984/_utils"
+					echo "Must set username and password before logging in the first time"
+					echo ""
+				else
+					echo ""
+					echo "Installation Aborted"
+					echo ""
+				fi
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	9)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			echo ""
+			cat <<'EOF'
+██████╗ ██████╗  █████╗ ███████╗ █████╗ ███╗   ██╗ █████╗ 
+██╔════╝ ██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔══██╗
+██║  ███╗██████╔╝███████║█████╗  ███████║██╔██╗ ██║███████║
+██║   ██║██╔══██╗██╔══██║██╔══╝  ██╔══██║██║╚██╗██║██╔══██║
+╚██████╔╝██║  ██║██║  ██║██║     ██║  ██║██║ ╚████║██║  ██║
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝                                                                                                                           
+EOF
+			echo ""
+			echo "   1) Install Grafana? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Grafana? [y/n]: " -e -i n SETUPGFN
+				if [[ "$SETUPGFN" == 'y' ]]; then
+					echo [grafana] >/etc/yum.repos.d/grafana.repo
+					echo name=grafana >>/etc/yum.repos.d/grafana.repo
+					echo baseurl=https://packagecloud.io/grafana/stable/el/7/\$basearch >>/etc/yum.repos.d/grafana.repo
+					echo repo_gpgcheck=1 >>/etc/yum.repos.d/grafana.repo
+					echo enabled=1 >>/etc/yum.repos.d/grafana.repo
+					echo gpgcheck=1 >>/etc/yum.repos.d/grafana.repo
+					echo gpgkey=https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana >>/etc/yum.repos.d/grafana.repo
+					echo sslverify=1 >>/etc/yum.repos.d/grafana.repo
+					echo sslcacert=/etc/pki/tls/certs/ca-bundle.crt >>/etc/yum.repos.d/grafana.repo
+					yum install grafana -y
+					service grafana-server start
+					chkconfig grafana-server on
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	10)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			cat <<'EOF'
+ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗███████╗██████╗ ██████╗ 
+██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝██╔════╝██╔══██╗██╔══██╗
+██║   ██║██████╔╝█████╗  ██╔██╗ ██║   ██║   ███████╗██║  ██║██████╔╝
+██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║   ██║   ╚════██║██║  ██║██╔══██╗
+╚██████╔╝██║     ███████╗██║ ╚████║   ██║   ███████║██████╔╝██████╔╝
+ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═════╝ ╚═════╝                                                                                                                              
+EOF
+			echo "   1) Install OpenTSDB 2.4.x? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install OpenTSDB 2.4.x? [y/n]: " -e -i n SETUPTSDB
+				if [[ "$SETUPTSDB" == 'y' ]]; then
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					fi
+					cat <<EOT >/etc/yum.repos.d/cdh.repo
+[cloudera-cdh5] 
+name = Cloudera CDH, Version 5.6.0
+baseurl = http://archive.cloudera.com/cdh5/redhat/5/x86_64/cdh/5.6.0/ 
+gpgkey = http://archive.cloudera.com/redhat/cdh/RPM-GPG-KEY-cloudera 
+gpgcheck = 1
+EOT
+					yum install hbase-master -y
+					HOST=$(hostname)
+					IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+					sed -i "1i $IP $HOST" /etc/hosts
+					cat <<EOT >/etc/hbase/conf/hbase-site.xml
+<configuration>
+<property>
+<name>hbase.rootdir</name>
+<value>file:///bigdata/hbase</value>
+</property>
+<property>
+<name>hbase.zookeeper.property.dataDir</name>
+<value>/bigdata/zookeeper</value>
+</property>
+</configuration>
+EOT
+					cat <<EOT >/etc/zookeeper/conf/zoo.cfg
+maxClientCnxns=50
+# The number of milliseconds of each tick
+tickTime=2000
+# The number of ticks that the initial 
+# synchronization phase can take
+initLimit=10
+# The number of ticks that can pass between 
+# sending a request and getting an acknowledgement
+syncLimit=5
+# the directory where the snapshot is stored.
+dataDir=/bigdata/zookeeper/
+# the port at which the clients will connect
+clientPort=2181
+# the directory where the transaction logs are stored.
+dataLogDir=/var/lib/zookeeper
+EOT
+					mkdir /bigdata/ && mkdir /bigdata/opentsdb-backup
+					chown -R hbase:hbase /bigdata/
+					service hbase-master restart
+					yum install -y https://github.com/OpenTSDB/opentsdb/releases/download/v2.3.1/opentsdb-2.3.1.noarch.rpm
+					env COMPRESSION=none HBASE_HOME=/usr/lib/hbase /usr/share/opentsdb/tools/create_table.sh
+					sed -i 's/#tsd.core.auto_create_metrics = false/tsd.core.auto_create_metrics = true/g' /etc/opentsdb/opentsdb.conf
+					sed -i '46s/.*/tsd.storage.fix_duplicates = true/' /etc/opentsdb/opentsdb.conf
+					#               cd /opt/
+					#               git clone git://github.com/OpenTSDB/opentsdb.git
+					#               cd opentsdb
+					#               ./build.sh
+					tsdtmp=${TMPDIR-'/tmp'}/tsd
+					mkdir -p "$tsdtmp"
+					#                    ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp" --zkquorum=localhost:2181
+					service opentsdb start
+					chkconfig opentsdb on
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+		exit
+		;;
+	11)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			cat <<'EOF'
+	███████╗██╗     ██╗  ██╗
+	██╔════╝██║     ██║ ██╔╝
+	█████╗  ██║     █████╔╝ 
+	██╔══╝  ██║     ██╔═██╗ 
+	███████╗███████╗██║  ██╗
+	╚══════╝╚══════╝╚═╝  ╚═╝
+EOF
+			echo ""
+			echo "   1) Install ELK? "
+			echo "   2) Install Elasticsearch+Kibana? "
+			echo "   3) Install Logstash"
+			echo "   4) exit"
+			echo ""
+			read -p "Select an option [1-4]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install ELK 6.2.x? [y/n]: " -e -i n SETUPELK
+				if [[ "$SETUPELK" == 'y' ]]; then
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					fi
+					rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+					cat <<EOT >/etc/yum.repos.d/elasticsearch.repo
+[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+					yum install elasticsearch -y
+					cat <<EOT >/etc/yum.repos.d/kibana.repo
+[kibana-6.x]
+name=Kibana repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+					yum install kibana -y
+					cat <<EOT >/etc/yum.repos.d/logstash.repo
+[logstash-6.x]
+name=Elastic repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+					yum install logstash -y
+					service elasticsearch start
+					service kibana start
+					service logstash start
+					sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/g' /etc/kibana/kibana.yml
+					chkconfig elasticsearch on
+					chkconfig kibana on
+					chkconfig logstash on
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5601 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				read -p "Do you want to install Elasticsearch and Kibana? [y/n]: " -e -i n SETUPELK
+				if [[ "$SETUPELK" == 'y' ]]; then
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					else
+						rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+						cat <<EOT >/etc/yum.repos.d/elasticsearch.repo
+[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+						yum install elasticsearch -y
+						cat <<EOT >/etc/yum.repos.d/kibana.repo
+[kibana-6.x]
+name=Kibana repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+						yum install kibana -y
+						service elasticsearch start
+						sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/g' /etc/kibana/kibana.yml
+						service kibana start
+						chkconfig elasticsearch on
+						chkconfig kibana on
+						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5601 -j ACCEPT' /etc/sysconfig/iptables
+						service iptables restart
+					fi
+				fi
+				echo ""
+				exit
+				;;
+			3)
+				read -p "Do you want to install Logstash? [y/n]: " -e -i n SETUPELK
+				if [[ "$SETUPELK" == 'y' ]]; then
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					else
+						rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+						cat <<EOT >/etc/yum.repos.d/logstash.repo
+[logstash-6.x]
+name=Elastic repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOT
+						yum install logstash -y
+						service logstash start
+						chkconfig logstash on
+					fi
+				fi
+				echo ""
+				exit
+				;;
+			4)
+
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	12)
+		#!/bin/bash
+		# OpenVPN road warrior installer for Debian, Ubuntu and CentOS
+
+		# This script will work on Debian, Ubuntu, CentOS and probably other distros
+		# of the same families, although no support is offered for them. It isn't
+		# bulletproof but it will probably work if you simply want to setup a VPN on
+		# your Debian/Ubuntu/CentOS box. It has been designed to be as unobtrusive and
+		# universal as possible.
+
+		# Detect Debian users running the script with "sh" instead of bash
+		if readlink /proc/$$/exe | grep -qs "dash"; then
+			echo "This script needs to be run with bash, not sh"
+			exit 1
+		fi
+
+		if [[ "$EUID" -ne 0 ]]; then
+			echo "Sorry, you need to run this as root"
+			exit 2
+		fi
+
+		if [[ ! -e /dev/net/tun ]]; then
+			echo "The TUN device is not available
+You need to enable TUN before running this script"
+			exit 3
+		fi
+
+		if grep -qs "CentOS release 5" "/etc/redhat-release"; then
+			echo "CentOS 5 is too old and not supported"
+			exit 4
+		fi
+		if [[ -e /etc/debian_version ]]; then
+			OS=debian
+			GROUPNAME=nogroup
+			RCLOCAL='/etc/rc.local'
+		elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
+			OS=centos
+			GROUPNAME=nobody
+			RCLOCAL='/etc/rc.d/rc.local'
+		else
+			echo "Looks like you aren't running this installer on Debian, Ubuntu or CentOS"
+			exit 5
+		fi
+
+		newclient() {
+			# Generates the custom client.ovpn
+			cp /etc/openvpn/client-common.txt ~/$1.ovpn
+			echo "<ca>" >>~/$1.ovpn
+			cat /etc/openvpn/easy-rsa/pki/ca.crt >>~/$1.ovpn
+			echo "</ca>" >>~/$1.ovpn
+			echo "<cert>" >>~/$1.ovpn
+			cat /etc/openvpn/easy-rsa/pki/issued/$1.crt >>~/$1.ovpn
+			echo "</cert>" >>~/$1.ovpn
+			echo "<key>" >>~/$1.ovpn
+			cat /etc/openvpn/easy-rsa/pki/private/$1.key >>~/$1.ovpn
+			echo "</key>" >>~/$1.ovpn
+			echo "<tls-auth>" >>~/$1.ovpn
+			cat /etc/openvpn/ta.key >>~/$1.ovpn
+			echo "</tls-auth>" >>~/$1.ovpn
+		}
+
+		# Try to get our IP from the system and fallback to the Internet.
+		# I do this to make the script compatible with NATed servers (lowendspirit.com)
+		# and to avoid getting an IPv6.
+		IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+		if [[ "$IP" == "" ]]; then
+			IP=$(wget -4qO- "http://whatismyip.akamai.com/")
+		fi
+
+		if [[ -e /etc/openvpn/server.conf ]]; then
+			while :; do
+				clear
+				echo "Looks like OpenVPN is already installed"
+				echo ""
+				echo "What do you want to do?"
+				echo "   1) Add a new user"
+				echo "   2) Revoke an existing user"
+				echo "   3) Remove OpenVPN"
+				echo "   4) Exit"
+				read -p "Select an option [1-4]: " option
+				case $option in
+				1)
+					echo ""
+					echo "Tell me a name for the client certificate"
+					echo "Please, use one word only, no special characters"
+					read -p "Client name: " -e -i client CLIENT
+					cd /etc/openvpn/easy-rsa/
+					./easyrsa build-client-full $CLIENT nopass
+					# Generates the custom client.ovpn
+					newclient "$CLIENT"
+					echo ""
+					echo "Client $CLIENT added, configuration is available at" ~/"$CLIENT.ovpn"
+					exit
+					;;
+				2)
+					# This option could be documented a bit better and maybe even be simplimplified
+					# ...but what can I say, I want some sleep too
+					NUMBEROFCLIENTS=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep -c "^V")
+					if [[ "$NUMBEROFCLIENTS" == '0' ]]; then
+						echo ""
+						echo "You have no existing clients!"
+						exit 6
+					fi
+					echo ""
+					echo "Select the existing client certificate you want to revoke"
+					tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
+					if [[ "$NUMBEROFCLIENTS" == '1' ]]; then
+						read -p "Select one client [1]: " CLIENTNUMBER
+					else
+						read -p "Select one client [1-$NUMBEROFCLIENTS]: " CLIENTNUMBER
+					fi
+					CLIENT=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$CLIENTNUMBER"p)
+					cd /etc/openvpn/easy-rsa/
+					./easyrsa --batch revoke $CLIENT
+					EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
+					rm -rf pki/reqs/$CLIENT.req
+					rm -rf pki/private/$CLIENT.key
+					rm -rf pki/issued/$CLIENT.crt
+					rm -rf /etc/openvpn/crl.pem
+					cp /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn/crl.pem
+					# CRL is read with each client connection, when OpenVPN is dropped to nobody
+					chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+					echo ""
+					echo "Certificate for client $CLIENT revoked"
+					exit
+					;;
+				3)
+					echo ""
+					read -p "Do you really want to remove OpenVPN? [y/n]: " -e -i n REMOVE
+					if [[ "$REMOVE" == 'y' ]]; then
+						PORT=$(grep '^port ' /etc/openvpn/server.conf | cut -d " " -f 2)
+						PROTOCOL=$(grep '^proto ' /etc/openvpn/server.conf | cut -d " " -f 2)
+						if pgrep firewalld; then
+							IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep '\-s 10.8.0.0/24 '"'"'!'"'"' -d 10.8.0.0/24 -j SNAT --to ' | cut -d " " -f 10)
+							# Using both permanent and not permanent rules to avoid a firewalld reload.
+							firewall-cmd --zone=public --remove-port=$PORT/$PROTOCOL
+							firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
+							firewall-cmd --permanent --zone=public --remove-port=$PORT/$PROTOCOL
+							firewall-cmd --permanent --zone=trusted --remove-source=10.8.0.0/24
+							firewall-cmd --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+							firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+						else
+							IP=$(grep 'iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to ' $RCLOCAL | cut -d " " -f 14)
+							iptables -t nat -D POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+							sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0\/24 ! -d 10.8.0.0\/24 -j SNAT --to /d' $RCLOCAL
+							if iptables -L -n | grep -qE '^ACCEPT'; then
+								iptables -D INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
+								iptables -D FORWARD -s 10.8.0.0/24 -j ACCEPT
+								iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+								sed -i "/iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT/d" $RCLOCAL
+								sed -i "/iptables -I FORWARD -s 10.8.0.0\/24 -j ACCEPT/d" $RCLOCAL
+								sed -i "/iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT/d" $RCLOCAL
+							fi
+						fi
+						if hash sestatus 2>/dev/null; then
+							if sestatus | grep "Current mode" | grep -qs "enforcing"; then
+								if [[ "$PORT" != '1194' || "$PROTOCOL" == 'tcp' ]]; then
+									semanage port -d -t openvpn_port_t -p $PROTOCOL $PORT
+								fi
+							fi
+						fi
+						if [[ "$OS" == 'debian' ]]; then
+							apt-get remove --purge -y openvpn
+						else
+							yum remove openvpn -y
+						fi
+						rm -rf /etc/openvpn
+						echo ""
+						echo "OpenVPN removed!"
+					else
+						echo ""
+						echo "Removal aborted!"
+					fi
+					exit
+					;;
+				4) exit ;;
+				esac
+			done
+		else
+			clear
+			echo 'Welcome to this quick OpenVPN "road warrior" installer'
+			echo ""
+			# OpenVPN setup and first user creation
+			echo "I need to ask you a few questions before starting the setup"
+			echo "You can leave the default options and just press enter if you are ok with them"
+			echo ""
+			echo "First I need to know the IPv4 address of the network interface you want OpenVPN"
+			echo "listening to."
+			read -p "IP address: " -e -i $IP IP
+			echo ""
+			echo "Which protocol do you want for OpenVPN connections?"
+			echo "   1) UDP (recommended)"
+			echo "   2) TCP"
+			read -p "Protocol [1-2]: " -e -i 1 PROTOCOL
+			case $PROTOCOL in
+			1)
+				PROTOCOL=udp
+				;;
+			2)
+				PROTOCOL=tcp
+				;;
+			esac
+			echo ""
+			echo "What port do you want OpenVPN listening to?"
+			read -p "Port: " -e -i 1194 PORT
+			echo ""
+			echo "Which DNS do you want to use with the VPN?"
+			echo "   1) Current system resolvers"
+			echo "   2) Google"
+			echo "   3) OpenDNS"
+			echo "   4) NTT"
+			echo "   5) Hurricane Electric"
+			echo "   6) Verisign"
+			read -p "DNS [1-6]: " -e -i 1 DNS
+			echo ""
+			echo "Finally, tell me your name for the client certificate"
+			echo "Please, use one word only, no special characters"
+			read -p "Client name: " -e -i client CLIENT
+			echo ""
+			echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
+			read -n1 -r -p "Press any key to continue..."
+			if [[ "$OS" == 'debian' ]]; then
+				apt-get update
+				apt-get install openvpn iptables openssl ca-certificates -y
+			else
+				# Else, the distro is CentOS
+				yum install epel-release -y
+				yum install openvpn iptables openssl wget ca-certificates -y
+			fi
+			# An old version of easy-rsa was available by default in some openvpn packages
+			if [[ -d /etc/openvpn/easy-rsa/ ]]; then
+				rm -rf /etc/openvpn/easy-rsa/
+			fi
+			# Get easy-rsa
+			wget -O ~/EasyRSA-3.0.4.tgz "https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.4/EasyRSA-3.0.4.tgz"
+			tar xzf ~/EasyRSA-3.0.4.tgz -C ~/
+			mv ~/EasyRSA-3.0.4/ /etc/openvpn/
+			mv /etc/openvpn/EasyRSA-3.0.4/ /etc/openvpn/easy-rsa/
+			chown -R root:root /etc/openvpn/easy-rsa/
+			rm -rf ~/EasyRSA-3.0.4.tgz
+			cd /etc/openvpn/easy-rsa/
+			# Create the PKI, set up the CA, the DH params and the server + client certificates
+			./easyrsa init-pki
+			./easyrsa --batch build-ca nopass
+			./easyrsa gen-dh
+			./easyrsa build-server-full server nopass
+			./easyrsa build-client-full $CLIENT nopass
+			EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
+			# Move the stuff we need
+			cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key pki/crl.pem /etc/openvpn
+			# CRL is read with each client connection, when OpenVPN is dropped to nobody
+			chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+			# Generate key for tls-auth
+			openvpn --genkey --secret /etc/openvpn/ta.key
+			# Generate server.conf
+			echo "port $PORT
+proto $PROTOCOL
+dev tun
+sndbuf 0
+rcvbuf 0
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+auth SHA512
+tls-auth ta.key 0
+topology subnet
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt" >/etc/openvpn/server.conf
+			echo 'push "redirect-gateway def1 bypass-dhcp"' >>/etc/openvpn/server.conf
+			# DNS
+			case $DNS in
+			1)
+				# Locate the proper resolv.conf
+				# Needed for systems running systemd-resolved
+				if grep -q "127.0.0.53" "/etc/resolv.conf"; then
+					RESOLVCONF='/run/systemd/resolve/resolv.conf'
+				else
+					RESOLVCONF='/etc/resolv.conf'
+				fi
+				# Obtain the resolvers from resolv.conf and use them for OpenVPN
+				grep -v '#' $RESOLVCONF | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read line; do
+					echo "push \"dhcp-option DNS $line\"" >>/etc/openvpn/server.conf
+				done
+				;;
+			2)
+				echo 'push "dhcp-option DNS 8.8.8.8"' >>/etc/openvpn/server.conf
+				echo 'push "dhcp-option DNS 8.8.4.4"' >>/etc/openvpn/server.conf
+				;;
+			3)
+				echo 'push "dhcp-option DNS 208.67.222.222"' >>/etc/openvpn/server.conf
+				echo 'push "dhcp-option DNS 208.67.220.220"' >>/etc/openvpn/server.conf
+				;;
+			4)
+				echo 'push "dhcp-option DNS 129.250.35.250"' >>/etc/openvpn/server.conf
+				echo 'push "dhcp-option DNS 129.250.35.251"' >>/etc/openvpn/server.conf
+				;;
+			5)
+				echo 'push "dhcp-option DNS 74.82.42.42"' >>/etc/openvpn/server.conf
+				;;
+			6)
+				echo 'push "dhcp-option DNS 64.6.64.6"' >>/etc/openvpn/server.conf
+				echo 'push "dhcp-option DNS 64.6.65.6"' >>/etc/openvpn/server.conf
+				;;
+			esac
+			echo "keepalive 10 120
+cipher AES-256-CBC
+comp-lzo
+user nobody
+group $GROUPNAME
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+crl-verify crl.pem" >>/etc/openvpn/server.conf
+			# Enable net.ipv4.ip_forward for the system
+			sed -i '/\<net.ipv4.ip_forward\>/c\net.ipv4.ip_forward=1' /etc/sysctl.conf
+			if ! grep -q "\<net.ipv4.ip_forward\>" /etc/sysctl.conf; then
+				echo 'net.ipv4.ip_forward=1' >>/etc/sysctl.conf
+			fi
+			# Avoid an unneeded reboot
+			echo 1 >/proc/sys/net/ipv4/ip_forward
+			if pgrep firewalld; then
+				# Using both permanent and not permanent rules to avoid a firewalld
+				# reload.
+				# We don't use --add-service=openvpn because that would only work with
+				# the default port and protocol.
+				firewall-cmd --zone=public --add-port=$PORT/$PROTOCOL
+				firewall-cmd --zone=trusted --add-source=10.8.0.0/24
+				firewall-cmd --permanent --zone=public --add-port=$PORT/$PROTOCOL
+				firewall-cmd --permanent --zone=trusted --add-source=10.8.0.0/24
+				# Set NAT for the VPN subnet
+				firewall-cmd --direct --add-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+				firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+			else
+				# Needed to use rc.local with some systemd distros
+				if [[ "$OS" == 'debian' && ! -e $RCLOCAL ]]; then
+					echo '#!/bin/sh -e
+exit 0' >$RCLOCAL
+				fi
+				chmod +x $RCLOCAL
+				# Set NAT for the VPN subnet
+				iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+				sed -i "1 a\iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP" $RCLOCAL
+				if iptables -L -n | grep -qE '^(REJECT|DROP)'; then
+					# If iptables has at least one REJECT rule, we asume this is needed.
+					# Not the best approach but I can't think of other and this shouldn't
+					# cause problems.
+					iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
+					iptables -I FORWARD -s 10.8.0.0/24 -j ACCEPT
+					iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+					sed -i "1 a\iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT" $RCLOCAL
+					sed -i "1 a\iptables -I FORWARD -s 10.8.0.0/24 -j ACCEPT" $RCLOCAL
+					sed -i "1 a\iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT" $RCLOCAL
+				fi
+			fi
+			# If SELinux is enabled and a custom port or TCP was selected, we need this
+			if hash sestatus 2>/dev/null; then
+				if sestatus | grep "Current mode" | grep -qs "enforcing"; then
+					if [[ "$PORT" != '1194' || "$PROTOCOL" == 'tcp' ]]; then
+						# semanage isn't available in CentOS 6 by default
+						if ! hash semanage 2>/dev/null; then
+							yum install policycoreutils-python -y
+						fi
+						semanage port -a -t openvpn_port_t -p $PROTOCOL $PORT
+					fi
+				fi
+			fi
+			# And finally, restart OpenVPN
+			if [[ "$OS" == 'debian' ]]; then
+				# Little hack to check for systemd
+				if pgrep systemd-journal; then
+					systemctl restart openvpn@server.service
+				else
+					/etc/init.d/openvpn restart
+				fi
+			else
+				if pgrep systemd-journal; then
+					systemctl restart openvpn@server.service
+					systemctl enable openvpn@server.service
+				else
+					service openvpn restart
+					chkconfig openvpn on
+				fi
+			fi
+			# Try to detect a NATed connection and ask about it to potential LowEndSpirit users
+			EXTERNALIP=$(wget -4qO- "http://whatismyip.akamai.com/")
+			if [[ "$IP" != "$EXTERNALIP" ]]; then
+				echo ""
+				echo "Looks like your server is behind a NAT!"
+				echo ""
+				echo "If your server is NATed (e.g. LowEndSpirit), I need to know the external IP"
+				echo "If that's not the case, just ignore this and leave the next field blank"
+				read -p "External IP: " -e USEREXTERNALIP
+				if [[ "$USEREXTERNALIP" != "" ]]; then
+					IP=$USEREXTERNALIP
+				fi
+			fi
+			# client-common.txt is created so we have a template to add further users later
+			echo "client
+dev tun
+proto $PROTOCOL
+sndbuf 0
+rcvbuf 0
+remote $IP $PORT
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+auth SHA512
+cipher AES-256-CBC
+comp-lzo
+setenv opt block-outside-dns
+key-direction 1
+verb 3" >/etc/openvpn/client-common.txt
+			# Generates the custom client.ovpn
+			newclient "$CLIENT"
+			echo ""
+			echo "Finished!"
+			echo ""
+			echo "Your client configuration is available at" ~/"$CLIENT.ovpn"
+			echo "If you want to add more clients, you simply need to run this script again!"
+		fi
+		exit
+		;;
+	13)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			cat <<'EOF'
+     ██╗ █████╗ ███████╗██████╗ ███████╗██████╗   
+     ██║██╔══██╗██╔════╝██╔══██╗██╔════╝██╔══██╗  
+     ██║███████║███████╗██████╔╝█████╗  ██████╔╝  
+██   ██║██╔══██║╚════██║██╔═══╝ ██╔══╝  ██╔══██╗  
+╚█████╔╝██║  ██║███████║██║     ███████╗██║  ██║  
+ ╚════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝  
+
+██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗
+██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝   ██║   
+██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗   ██║   
+██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   
+╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                                                              
+EOF
+			echo "   1) Install Jasper Report v6.4.2? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Jasper Report? [y/n]: " -e -i n SETUPJP
+				if [[ "$SETUPJP" == 'y' ]]; then
+					setenforce 0
+					if [[ ! -e TIB_js-jrs-cp_6.4.2_linux_x86_64.run ]]; then
+						#	wget --no-check-certificate https://jaist.dl.sourceforge.net/project/jasperserver/JasperServer/JasperReports%20Server%20Community%20Edition%206.4.2/TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+						#	chmod 777 TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+						#        git clone ssh://muyahid.s@www.linxwork.com:29418/jasper-server.git && mv jasper-server/TIB_js-jrs-cp_6.4.2_linux_x86_64.run ../
+						wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl && perl gdown.pl https://drive.google.com/file/d/114PvgIeHHrmhXrwIcLre7tZbnHgUHqAJ TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+						rm -f gdown.pl
+					fi
+					sh TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+					sed -i '165i\<property name="allowUserPasswordChange" value="true"/>' /opt/jasperreports-server-cp-6.4.2/apache-tomcat/webapps/jasperserver/WEB-INF/jasperserver-servlet.xml
+					sed -i -e '166d' /opt/jasperreports-server-cp-6.4.2/apache-tomcat/webapps/jasperserver/WEB-INF/jasperserver-servlet.xml
+					/opt/jasperreports-server-cp-6.4.2/ctlscript.sh start
+					echo ""
+					echo "Access the Jasperserver <yourIPAddress>:8080/jasperserver/login.html"
+					echo "Must change password before logging in the first time"
+					echo "Username jasperadmin Password jasperadmin"
+					echo ""
+				else
+					echo ""
+					echo "Installation Aborted"
+					echo ""
+				fi
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	14)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			cat <<'EOF'
+ █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ██╗██████╗       ███████╗██████╗ ██╗  ██╗
+██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗██║██╔══██╗      ██╔════╝██╔══██╗██║ ██╔╝
+███████║██╔██╗ ██║██║  ██║██████╔╝██║   ██║██║██║  ██║█████╗███████╗██║  ██║█████╔╝ 
+██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║   ██║██║██║  ██║╚════╝╚════██║██║  ██║██╔═██╗ 
+██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝██║██████╔╝      ███████║██████╔╝██║  ██╗
+╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═════╝       ╚══════╝╚═════╝ ╚═╝  ╚═╝
+EOF
+			echo "   1) Install Android-sdk? "
+			echo "   2) Update Android-sdk"
+			echo "   3) Exit"
+			echo ""
+			read -p "Select an option [1-3]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Android-sdk [y/n]: " -e -i n SETUPSDK
+				if [[ "$SETUPSDK" == 'y' ]]; then
+					yum erase NetworkManager* firewalld -y
+					yum groupinstall "Development Tools" -y
+					yum install epel-release iptables-services ntp net-tools telnet tcpdump wget python-devel bind-utils lrzip -y
+					if [[ ! -e /usr/bin/npm ]]; then
+						curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+						yum -y install nodejs
+					fi
+					if [[ ! -e /usr/bin/java ]]; then
+						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+						source /etc/profile
+					fi
+					yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
+					if [[ ! -e /usr/bin/gradle ]]; then
+						wget https://services.gradle.org/distributions/gradle-3.4.1-bin.zip
+						mkdir /opt/gradle
+						unzip -d /opt/gradle gradle-3.4.1-bin.zip
+						echo export PATH=$PATH:/opt/gradle/gradle-3.4.1/bin >>/etc/profile
+					fi
+					wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl -O /usr/bin/gdown && chmod 777 /usr/bin/gdown
+					cd /opt && gdown https://doc-10-bk-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/fb7einmss0jrmlkev70bij61duivcfcc/1527134400000/07473850029731947918/*/1Q7Bt_mWkzYTKaOLL8XvtzYwq53CgIf45?e=download /opt/android-sdk.tar.lrz
+					lrzuntar android-sdk.tar.lrz
+					echo export JAVA_HOME=/usr/lib/jvm/jre >>/etc/profile
+					echo export JAVA_PATH=/usr/lib/jvm/jre >>/etc/profile
+					echo export PATH=$PATH:/usr/lib/jvm/jre/bin >>/etc/profile
+					echo export PATH=$PATH:/opt/android-sdk/gradle/bin >>/etc/profile
+					echo export ANDROID_HOME="/opt/android-sdk" >>/etc/profile
+					echo export PATH="/opt/android-sdk/tools:$ANDROID_HOME/platform-tools:$PATH" >>/etc/profile
+					source /etc/profile
+					npm install -g cordova ionic
+					android update sdk --no-ui
+					echo ""
+					echo "Installation has been completed!"
+					echo "Start a new shell or run -> source /etc/profile"
+					echo ""
+				fi
+				exit
+				;;
+			2)
+				read -p "Do you want to update Android-sdk [y/n]: " -e -i n UPDATESDK
+				if [[ "$UPDATESDK" == 'y' ]]; then
+					android update sdk --no-ui
+				fi
+				exit
+				;;
+			3)
+
+				exit
+				;;
+			esac
+		done
+		exit
+		;;
+	20)
+		while :; do
+			clear
+			#!/bin/sh
+			echo ""
+			cat <<'EOF'
+██████╗ ███████╗██╗   ██╗████████╗ ██████╗  ██████╗ ██╗     ███████╗
+██╔══██╗██╔════╝██║   ██║╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
+██║  ██║█████╗  ██║   ██║   ██║   ██║   ██║██║   ██║██║     ███████╗
+██║  ██║██╔══╝  ╚██╗ ██╔╝   ██║   ██║   ██║██║   ██║██║     ╚════██║
+██████╔╝███████╗ ╚████╔╝    ██║   ╚██████╔╝╚██████╔╝███████╗███████║
+╚═════╝ ╚══════╝  ╚═══╝     ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+EOF
+			echo ""
+			echo "   1) Install Devtools? "
+			echo "   2) exit"
+			echo ""
+			read -p "Select an option [1-2]: " option
+			echo ""
+			case $option in
+			1)
+				read -p "Do you want to install Devtools? [y/n]: " -e -i n SETUPDEV
+				if [[ "$SETUPDEV" == 'y' ]]; then
+					echo nameserver 8.8.8.8 >/etc/resolv.conf
+					echo nameserver 8.8.4.4 >>/etc/resolv.conf
+					yum update -y
+					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
+					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+					cp -f /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
+					yum erase NetworkManager* firewalld -y
+					yum groupinstall "Development Tools" -y
+					yum install epel-release iptables-services ntp net-tools telnet tcpdump wget python-devel bind-utils -y
+					yum install htop net-snmp net-snmp-utils perl-devel -y
+					yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+					echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
+					source /etc/profile
+					chkconfig iptables on
+					chkconfig ntpd on
+					sed -i 's/server 0.centos.pool.ntp.org iburst/server 3.th.pool.ntp.org/g' /etc/ntp.conf
+					sed -i 's/server 1.centos.pool.ntp.org iburst/server 1.asia.pool.ntp.org/g' /etc/ntp.conf
+					sed -i 's/server 2.centos.pool.ntp.org iburst/server 3.asia.pool.ntp.org/g' /etc/ntp.conf
+					sed -i 's/server 3.centos.pool.ntp.org iburst/#server 3.centos.pool.ntp.org iburst/g' /etc/ntp.conf
+					service ntpd stop
+					ntpdate 3.th.pool.ntp.org
+					ntpdate 1.asia.pool.ntp.org
+					ntpdate 3.asia.pool.ntp.org
+					service ntpd start
+					mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak
+					cat <<'EOT' >/etc/snmp/snmpd.conf
+# Map 'idv90we3rnov90wer' community to the 'ConfigUser'
+# Map '209ijvfwer0df92jd' community to the 'AllUser'
+# sec.name source community
+com2sec ConfigUser default private
+com2sec AllUser default public
+# Map 'ConfigUser' to 'ConfigGroup' for SNMP Version 2c
+# Map 'AllUser' to 'AllGroup' for SNMP Version 2c
+# sec.model sec.name
+group ConfigGroup v2c ConfigUser
+group AllGroup v2c AllUser
+# Define 'SystemView', which includes everything under .1.3.6.1.2.1.1 (or .1.3.6.1.2.1.25.1)
+# Define 'AllView', which includes everything under .1
+# incl/excl subtree
+view SystemView included .1.3.6.1.2.1.1
+view SystemView included .1.3.6.1.2.1.25.1.1
+view systemview included .1
+view AllView included .1
+# Give 'ConfigGroup' read access to objects in the view 'SystemView'
+# Give 'AllGroup' read access to objects in the view 'AllView'
+# context model level prefix read write notify
+access ConfigGroup "" any noauth exact SystemView none none
+access AllGroup "" any noauth exact AllView none none
+EOT
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p udp -m state --state NEW -m udp --dport 161 -j ACCEPT' /etc/sysconfig/iptables
+					service snmpd restart
+					chkconfig snmpd on
+					service iptables restart
+					yum update -y
+				fi
+				echo ""
+				exit
+				;;
+			2)
+				exit
+				;;
+
+			esac
+		done
+
+		exit
+		;;
+	30)
+
+		exit
+		;;
+	esac
+done
