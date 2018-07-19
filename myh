@@ -1,5 +1,6 @@
 #!/bin/sh
 #Colours
+run_it () {
 red="\033[00;31m"
 RED="\033[01;31m"
 
@@ -1480,3 +1481,5 @@ EOT
 		;;
 	esac
 done
+}
+run_it
