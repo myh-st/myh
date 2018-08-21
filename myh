@@ -94,6 +94,7 @@ EOF
 					curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
 					yum -y install nodejs
 					npm install -g iron-meteor
+					npm install -g pm2
 				fi
 				exit
 				;;
@@ -107,6 +108,7 @@ EOF
 					curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 					yum -y install nodejs
 					npm install -g iron-meteor
+					npm install -g pm2
 				fi
 				exit
 				;;
@@ -376,7 +378,7 @@ EOF
 					npm install meteor-job
 					npm install ddp
 					npm install ddp-login
-					npm install pm2
+					npm install pm2 -g
 					pm2 start /usr/bin/node-red
 					sleep 1
 					sed -i '125s/.*/adminAuth: {/' /root/.node-red/settings.js
