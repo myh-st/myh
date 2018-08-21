@@ -1,6 +1,5 @@
 #!/bin/sh
 #Colours
-run_it () {
 red="\033[00;31m"
 RED="\033[01;31m"
 
@@ -125,7 +124,7 @@ EOF
 				exit
 				;;
 			4)
-
+				sh myh
 				exit
 				;;
 
@@ -204,7 +203,7 @@ EOF
 				;;
 
 			3)
-
+				sh myh
 				exit
 				;;
 			esac
@@ -279,6 +278,7 @@ EOT
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -328,6 +328,7 @@ EOF
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -408,6 +409,7 @@ EOF
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 			esac
@@ -452,6 +454,7 @@ EOF
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -510,6 +513,7 @@ EOT
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -559,6 +563,7 @@ EOF
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -655,6 +660,7 @@ EOT
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -810,7 +816,7 @@ EOT
 				exit
 				;;
 			4)
-
+				sh myh
 				exit
 				;;
 
@@ -1301,6 +1307,7 @@ EOF
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -1378,7 +1385,7 @@ EOF
 				exit
 				;;
 			3)
-
+				sh myh
 				exit
 				;;
 			esac
@@ -1467,6 +1474,7 @@ EOT
 				exit
 				;;
 			2)
+				sh myh
 				exit
 				;;
 
@@ -1476,11 +1484,7 @@ EOT
 		exit
 		;;
 	30)
-
 		exit
 		;;
 	esac
 done
-trap - EXIT
-}
-run_it
