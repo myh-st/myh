@@ -1481,5 +1481,6 @@ EOT
 		;;
 	esac
 done
+trap - EXIT
 }
 run_it
