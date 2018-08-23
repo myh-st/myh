@@ -1284,9 +1284,6 @@ EOF
 				if [[ "$SETUPJP" == 'y' ]]; then
 					setenforce 0
 					if [[ ! -e TIB_js-jrs-cp_6.4.2_linux_x86_64.run ]]; then
-						#	wget --no-check-certificate https://jaist.dl.sourceforge.net/project/jasperserver/JasperServer/JasperReports%20Server%20Community%20Edition%206.4.2/TIB_js-jrs-cp_6.4.2_linux_x86_64.run
-						#	chmod 777 TIB_js-jrs-cp_6.4.2_linux_x86_64.run
-						#        git clone ssh://muyahid.s@www.linxwork.com:29418/jasper-server.git && mv jasper-server/TIB_js-jrs-cp_6.4.2_linux_x86_64.run ../
 						wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl && perl gdown.pl https://drive.google.com/file/d/114PvgIeHHrmhXrwIcLre7tZbnHgUHqAJ TIB_js-jrs-cp_6.4.2_linux_x86_64.run
 						rm -f gdown.pl
 					fi
