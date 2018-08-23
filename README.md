@@ -6,7 +6,7 @@ myh script auto-install software for CentOS.
 
 # or
 
-    git clone https://github.com/myh-st/myh.git && cd myh sh myh
+    git clone https://github.com/myh-st/myh.git && cd myh && sh myh
 
 Thanks. OpenVPN Script from
 https://github.com/Nyr/openvpn-install
