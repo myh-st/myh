@@ -42,7 +42,7 @@ EOF
 	echo -e "${NC}"
 	echo "   1) Install Nodejs "
 	echo "   2) Install Meteor "
-	echo "   3) Install MongoDB 3.4,3.6 "
+	echo "   3) Install MongoDB 3.4,3.6,4.0 "
 	echo "   4) Install Mongo Studio "
 	echo "   5) Install Rockmongo "
 	echo "   6) Install Node-Red+Authentication "
@@ -162,9 +162,10 @@ EOF
 			echo ""
 			echo "   1) Install MongoDB version 3.4? "
 			echo "   2) Install MongoDB version 3.6? "
-			echo "   3) exit"
+			echo "   3) Install MongoDB version 4.0? "
+			echo "   4) exit"
 			echo ""
-			read -p "Select an option [1-3]: " option
+			read -p "Select an option [1-4]: " option
 			echo ""
 			case $option in
 			1)
@@ -205,9 +206,27 @@ EOF
 				;;
 
 			3)
-				sh myh
+				read -p "Do you want to install MongoDB-4.0? [y/n]: " -e -i n SETUPMONGO
+				if [[ "$SETUPMONGO" == 'y' ]]; then
+					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
+					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+					setenforce 0
+					echo [mongodb-org-4.0] >/etc/yum.repos.d/mongodb-org-4.0.repo
+					echo name=MongoDB Repository >>/etc/yum.repos.d/mongodb-org-4.0.repo
+					echo baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/4.0/x86_64/ >>/etc/yum.repos.d/mongodb-org-4.0.repo
+					echo gpgcheck=1 >>/etc/yum.repos.d/mongodb-org-4.0.repo
+					echo enabled=1 >>/etc/yum.repos.d/mongodb-org-4.0.repo
+					echo gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc >>/etc/yum.repos.d/mongodb-org-4.0.repo
+					yum install mongodb-org -y
+					service mongod start
+					chkconfig mongod on
+				fi
 				exit
 				;;
+			4)
+			sh myh
+			exit
+			;;
 			esac
 		done
 		exit
