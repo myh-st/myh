@@ -22,6 +22,23 @@ white="\033[00;37m"
 WHITE="\033[01;37m"
 NC="\033[00m"
 HOSTNAME=$(uname -n)
+
+		if [[ "$EUID" -ne 0 ]]; then
+			echo "Sorry, you need to run this as root"
+			exit 1
+		fi
+
+		if grep -qs "CentOS release 5" "/etc/redhat-release"; then
+			echo "CentOS 5 is too old and not supported"
+			exit 2
+		fi
+
+		if [[ ! -e /etc/centos-release || -e /etc/redhat-release ]]; then
+			echo ""
+		else
+			echo "Looks like you aren't running this installer on CentOS 7"
+			exit 3
+		fi
 while :; do
 	clear
 	echo ""
@@ -87,41 +104,51 @@ EOF
 			1)
 				read -p "Do you want to install Nodejs 6.x? [y/n]: " -e -i n SETUPNODE
 				if [[ "$SETUPNODE" == 'y' ]]; then
-					if [[ ! -e /usr/bin/node ]]; then
+					if [[ -e /usr/bin/node ]]; then
+						echo "Looks like nodejs is already installed"
+						echo ""
+					elif [[ ! -e /usr/bin/node ]]; then
 						rm -f /etc/yum.repos.d/nodesource-el*
 						yum clean all && rm -rf /var/cache/yum
+						curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
+						yum -y install nodejs
+						npm install -g iron-meteor
+						npm install -g pm2
 					fi
-					curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
-					yum -y install nodejs
-					npm install -g iron-meteor
-					npm install -g pm2
 				fi
 				exit
 				;;
 			2)
 				read -p "Do you want to install Nodejs 8.x? [y/n]: " -e -i n SETUPNODE
 				if [[ "$SETUPNODE" == 'y' ]]; then
-					if [[ ! -e /usr/bin/node ]]; then
+					if [[ -e /usr/bin/node ]]; then
+						echo "Looks like nodejs is already installed"
+						echo ""
+					elif [[ ! -e /usr/bin/node ]]; then
 						rm -f /etc/yum.repos.d/nodesource-el*
 						yum clean all && rm -rf /var/cache/yum
+						curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+						yum -y install nodejs
+						npm install -g iron-meteor
+						npm install -g pm2
 					fi
-					curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-					yum -y install nodejs
-					npm install -g iron-meteor
-					npm install -g pm2
 				fi
 				exit
 				;;
 			3)
 				read -p "Do you want to install Nodejs 9.x? [y/n]: " -e -i n SETUPNODE
-				if [[ "$SETUPNODE" == 'y' ]]; then
-					if [[ ! -e /usr/bin/node ]]; then
+			if [[ "$SETUPNODE" == 'y' ]]; then
+					if [[ -e /usr/bin/node ]]; then
+						echo "Looks like nodejs is already installed"
+						echo ""
+					elif [[ ! -e /usr/bin/node ]]; then
 						rm -f /etc/yum.repos.d/nodesource-el*
 						yum clean all && rm -rf /var/cache/yum
+						curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+						yum -y install nodejs
+						npm install -g iron-meteor
+						npm install -g pm2
 					fi
-					curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
-					yum -y install nodejs
-					npm install -g iron-meteor
 				fi
 				exit
 				;;
@@ -138,6 +165,11 @@ EOF
 	2)
 		read -p "Do you want to install Meteor? [y/n]: " -e -i n SETUPMETEOR
 		if [[ "$SETUPMETEOR" == 'y' ]]; then
+				if [[ -e /usr/local/bin/meteor ]]; then
+						echo "Looks like Meteor is already installed"
+						echo ""
+						exit
+				fi
 			curl https://install.meteor.com/ | sh
 			useradd meteor
 		fi
@@ -171,6 +203,11 @@ EOF
 			1)
 				read -p "Do you want to install MongoDB-3.4? [y/n]: " -e -i n SETUPMONGO
 				if [[ "$SETUPMONGO" == 'y' ]]; then
+					if [[ -e /usr/bin/mongo ]]; then
+						echo "Looks like MongoDB is already installed"
+						echo ""
+						exit
+					fi
 					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 					setenforce 0
@@ -189,6 +226,11 @@ EOF
 			2)
 				read -p "Do you want to install MongoDB-3.6? [y/n]: " -e -i n SETUPMONGO
 				if [[ "$SETUPMONGO" == 'y' ]]; then
+					if [[ -e /usr/bin/mongo ]]; then
+						echo "Looks like MongoDB is already installed"
+						echo ""
+						exit
+					fi
 					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 					setenforce 0
@@ -208,6 +250,11 @@ EOF
 			3)
 				read -p "Do you want to install MongoDB-4.0? [y/n]: " -e -i n SETUPMONGO
 				if [[ "$SETUPMONGO" == 'y' ]]; then
+					if [[ -e /usr/bin/mongo ]]; then
+						echo "Looks like MongoDB is already installed"
+						echo ""
+						exit
+					fi
 					sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 					sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 					setenforce 0
@@ -258,6 +305,7 @@ EOF
 					if [[ ! -e /usr/bin/node ]]; then
 						curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
 						yum -y install nodejs
+						npm install pm2 -g
 					fi
 					if [[ ! -e /usr/bin/java ]]; then
 						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
@@ -265,34 +313,21 @@ EOF
 						source /etc/profile
 					fi
 					echo ""
+					if [[  -e /opt/mongostudio ]]; then
+					echo "Looks like MongoStudio is already installed."
+					echo ""
+					fi
 					git clone https://github.com/myh-st/mongst.git /opt/mongostudio
-					cat <<EOT >/etc/systemd/system/mongostudio.service
-[Unit]
-Description=mongostudio
-After=network.target
-
-[Service]
-User=root
-ExecStart=/usr/bin/node /opt/mongostudio/server.js
-Type=simple
-KillMode=process
-Restart=always
-StandardOutput=syslog               
-StandardError=syslog 
-SyslogIdentifier=mongostudio
-
-[Install]
-WantedBy=multi-user.target
-EOT
-					service mongostudio start
-					chkconfig mongostudio on
-
+					read -p "Set Login Password: " -e  SETPASS
+					sed -i "s/myh1993/$SETPASS/g" /opt/mongostudio/server.js
+					pm2 start /opt/mongostudio/server.js --name mongostudio:3333
+					pm2 startup && pm2 save
 					if [[ -e /etc/sysconfig/iptables ]]; then
 						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 3333 -j ACCEPT' /etc/sysconfig/iptables
 						service iptables restart
 						echo ""
-						echo "Mongo Studio running on port 3333"
-						echo "Default Username: admin Password: myh1993"
+						echo "MongoStudio running on port 3333"
+						echo "Default Username: admin Password: $SETPASS"
 					fi
 				fi
 				echo ""
@@ -329,7 +364,7 @@ EOF
 			echo ""
 			case $option in
 			1)
-				read -p "Do you want to Mongo Studio? [y/n]: " -e -i n SETUPRMG
+				read -p "Do you want to install Rock Mongo? [y/n]: " -e -i n SETUPRMG
 				if [[ "$SETUPRMG" == 'y' ]]; then
 					yum install httpd httpd-devel php php-mongo git -y
 					cd /var/www/html
@@ -337,14 +372,17 @@ EOF
 					sed -i '861s/.*/extension=mongo.so/' /etc/php.ini
 					sed -i -e '31d' /var/www/html/rockmongo/config.php
 					sed -i -e '31d' /var/www/html/rockmongo/config.php
+					read -p "Set Login Password: " -e  SETPASS
 					sed -i "31i\$MONGO[\"servers\"][\$i][\"control_auth\"] = true;" /var/www/html/rockmongo/config.php
-					sed -i "32i\$MONGO[\"servers\"][\$i][\"control_users\"][\"admin\"] = \"myh1993\";" /var/www/html/rockmongo/config.php
+					sed -i "32i\$MONGO[\"servers\"][\$i][\"control_users\"][\"admin\"] = \"$SETPASS\";" /var/www/html/rockmongo/config.php
 					systemctl restart httpd
 					chkconfig httpd on
+					if [[ -e /etc/sysconfig/iptables ]]; then
 					sed -i '/-A INPUT -i lo -j ACCEPT/a \
                             -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT \
                             -A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT' /etc/sysconfig/iptables
 					service iptables restart
+					fi
 				fi
 				echo ""
 				exit
@@ -383,13 +421,22 @@ EOF
 			1)
 				read -p "Do you want to install Node-red with Authentication [y/n]: " -e -i n SETUPNODE
 				if [[ "$SETUPNODE" == 'y' ]]; then
-					curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
-					yum -y install nodejs
+					if [[ -e /usr/bin/node ]]; then
+						echo "Looks like nodejs is already installed"
+						echo ""
+					elif [[ ! -e /usr/bin/node ]]; then
+						rm -f /etc/yum.repos.d/nodesource-el*
+						yum clean all && rm -rf /var/cache/yum
+						curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+						yum -y install nodejs
+					fi
+					if [[ -e /etc/sysconfig/iptables ]]; then
 					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 1880 -j ACCEPT' /etc/sysconfig/iptables
 					service iptables restart
-					cd /usr/lib/node_modules
-					npm install -g node-red
-					npm install -g node-red-admin
+					fi
+					chown -R root:root /usr/lib/node_modules && cd /usr/lib/node_modules
+					npm install node-red
+					npm install node-red-admin
 					npm install node-red-contrib-repeat
 					npm install node-red-contrib-redis
 					npm install node-red-contrib-mongodb3
@@ -398,7 +445,7 @@ EOF
 					npm install meteor-job
 					npm install ddp
 					npm install ddp-login
-					npm install pm2 -g
+					npm install -g pm2
 					pm2 start /usr/bin/node-red
 					sleep 1
 					sed -i '125s/.*/adminAuth: {/' /root/.node-red/settings.js
@@ -410,18 +457,13 @@ EOF
 					sed -i '130s/.*/permissions: "*"/' /root/.node-red/settings.js
 					sed -i '131s/.*/}]/' /root/.node-red/settings.js
 					sed -i '132s/.*/},/' /root/.node-red/settings.js
-					pm2 startup
-					pm2 save
-					pm2 restart all
+					pm2 startup && pm2 save
+					#pm2 restart all
 					echo ""
 					echo "Node-Red Installation has been Completed"
 					echo "Default auth admin/myh1993"
 					echo "You can view information about the process and access the log output using the commands"
 					echo "pm2 status"
-					echo "pm2 info 0"
-					echo "pm2 logs 0"
-					echo "Restart Node-Red"
-					echo "pm2 restart 0"
 					echo ""
 				else
 					echo ""
@@ -454,7 +496,7 @@ EOF
 ╚═╝╚═╝  ╚═══╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝                                                                                                                                     
 EOF
 			echo ""
-			echo "   1) Install InfluxDB version 1.9? "
+			echo "   1) Install InfluxDB? "
 			echo "   2) exit"
 			echo ""
 			read -p "Select an option [1-2]: " option
@@ -469,8 +511,8 @@ EOF
 					echo enabled = 1 >>/etc/yum.repos.d/influxdb.repo
 					echo gpgcheck = 1 >>/etc/yum.repos.d/influxdb.repo
 					echo gpgkey = https://repos.influxdata.com/influxdb.key >>/etc/yum.repos.d/influxdb.repo
-					yum install influxdb
-					service influxdb start
+					yum install influxdb -y
+					service influxdb start && chkconfig influxdb on
 				fi
 				echo ""
 				exit
@@ -500,14 +542,14 @@ EOF
  ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═════╝                                                                                                                                 
 EOF
 			echo ""
-			echo "   1) Install CouchDB 2.1.1? "
+			echo "   1) Install CouchDB? "
 			echo "   2) exit"
 			echo ""
 			read -p "Select an option [1-2]: " option
 			echo ""
 			case $option in
 			1)
-				read -p "Do you want to install CouchDB 2.1.1? [y/n]: " -e -i n SETUPCDB
+				read -p "Do you want to install CouchDB? [y/n]: " -e -i n SETUPCDB
 				if [[ "$SETUPCDB" == 'y' ]]; then
 					cat <<EOT >/etc/yum.repos.d/bintray-apache-couchdb-rpm.repo
 [bintray--apache-couchdb-rpm]
@@ -521,8 +563,13 @@ EOT
 					chkconfig couchdb on
 					sed -i 's/bind_address = 127.0.0.1/bind_address = 0.0.0.0 /g' /opt/couchdb/etc/default.ini
 					service couchdb start
+					if [[ -e /etc/sysconfig/iptables ]]; then
 					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5984 -j ACCEPT' /etc/sysconfig/iptables
 					service iptables restart
+					fi
+					curl -X PUT http://127.0.0.1:5984/_users
+					curl -X PUT http://127.0.0.1:5984/_replicator
+					curl -X PUT http://127.0.0.1:5984/_global_changes
 					echo ""
 					echo "Access CouchDB <yourIPAddress>:5984/_utils"
 					echo "Must set username and password before logging in the first time"
@@ -580,6 +627,10 @@ EOF
 					yum install grafana -y
 					service grafana-server start
 					chkconfig grafana-server on
+					if [[ -e /etc/sysconfig/iptables ]]; then
+					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 3000 -j ACCEPT' /etc/sysconfig/iptables
+					service iptables restart
+					fi
 				fi
 				echo ""
 				exit
@@ -621,7 +672,7 @@ EOF
 						echo export JAVA_HOME=/usr/lib/jvm/jre-1.8.0 >>/etc/profile
 						source /etc/profile
 					fi
-					cat <<EOT >/etc/yum.repos.d/cdh.repo
+cat <<EOT > /etc/yum.repos.d/cdh.repo
 [cloudera-cdh5] 
 name = Cloudera CDH, Version 5.6.0
 baseurl = http://archive.cloudera.com/cdh5/redhat/5/x86_64/cdh/5.6.0/ 
@@ -720,7 +771,7 @@ EOF
 						source /etc/profile
 					fi
 					rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-					cat <<EOT >/etc/yum.repos.d/elasticsearch.repo
+					cat <<EOT > /etc/yum.repos.d/elasticsearch.repo
 [elasticsearch-6.x]
 name=Elasticsearch repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -731,7 +782,7 @@ autorefresh=1
 type=rpm-md
 EOT
 					yum install elasticsearch -y
-					cat <<EOT >/etc/yum.repos.d/kibana.repo
+					cat <<EOT > /etc/yum.repos.d/kibana.repo
 [kibana-6.x]
 name=Kibana repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -742,7 +793,7 @@ autorefresh=1
 type=rpm-md
 EOT
 					yum install kibana -y
-					cat <<EOT >/etc/yum.repos.d/logstash.repo
+					cat <<EOT > /etc/yum.repos.d/logstash.repo
 [logstash-6.x]
 name=Elastic repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -760,8 +811,10 @@ EOT
 					chkconfig elasticsearch on
 					chkconfig kibana on
 					chkconfig logstash on
+					if [[ -e /etc/sysconfig/iptables ]]; then
 					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5601 -j ACCEPT' /etc/sysconfig/iptables
 					service iptables restart
+					fi
 				fi
 				echo ""
 				exit
@@ -786,7 +839,7 @@ autorefresh=1
 type=rpm-md
 EOT
 						yum install elasticsearch -y
-						cat <<EOT >/etc/yum.repos.d/kibana.repo
+						cat <<EOT > /etc/yum.repos.d/kibana.repo
 [kibana-6.x]
 name=Kibana repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -802,8 +855,10 @@ EOT
 						service kibana start
 						chkconfig elasticsearch on
 						chkconfig kibana on
+						if [[ -e /etc/sysconfig/iptables ]]; then
 						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 5601 -j ACCEPT' /etc/sysconfig/iptables
 						service iptables restart
+						fi
 					fi
 				fi
 				echo ""
@@ -1291,23 +1346,28 @@ verb 3" >/etc/openvpn/client-common.txt
 ██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   
 ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                                                              
 EOF
-			echo "   1) Install Jasper Report v6.4.2? "
+			echo "   1) Install Jasper Report Server v6.4.2? "
 			echo "   2) exit"
 			echo ""
 			read -p "Select an option [1-2]: " option
 			echo ""
 			case $option in
 			1)
-				read -p "Do you want to install Jasper Report? [y/n]: " -e -i n SETUPJP
+				read -p "Do you want to install Jasper Report Server? [y/n]: " -e -i n SETUPJP
 				if [[ "$SETUPJP" == 'y' ]]; then
 					setenforce 0
-					if [[ ! -e TIB_js-jrs-cp_6.4.2_linux_x86_64.run ]]; then
-						wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl && perl gdown.pl https://drive.google.com/file/d/114PvgIeHHrmhXrwIcLre7tZbnHgUHqAJ TIB_js-jrs-cp_6.4.2_linux_x86_64.run
-						rm -f gdown.pl
+					if [[ -e /opt/jasperreports-server* ]]; then
+						echo "Looks like Jasper Server is already installed"
+						echo ""
+						elif [[ ! -e /opt/jasperreports-server* ]]; then
+							wget https://raw.githubusercontent.com/circulosmeos/gdown.pl/master/gdown.pl && perl gdown.pl https://drive.google.com/file/d/114PvgIeHHrmhXrwIcLre7tZbnHgUHqAJ TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+							rm -f gdown.pl
 					fi
-					sh TIB_js-jrs-cp_6.4.2_linux_x86_64.run
-					sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT' /etc/sysconfig/iptables
-					service iptables restart
+						sh TIB_js-jrs-cp_6.4.2_linux_x86_64.run
+						if [[ -e /etc/sysconfig/iptables ]]; then
+						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT' /etc/sysconfig/iptables
+						service iptables restart
+						fi
 					sed -i '165i\<property name="allowUserPasswordChange" value="true"/>' /opt/jasperreports-server-cp-6.4.2/apache-tomcat/webapps/jasperserver/WEB-INF/jasperserver-servlet.xml
 					sed -i -e '166d' /opt/jasperreports-server-cp-6.4.2/apache-tomcat/webapps/jasperserver/WEB-INF/jasperserver-servlet.xml
 					/opt/jasperreports-server-cp-6.4.2/ctlscript.sh start
