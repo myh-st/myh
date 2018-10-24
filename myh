@@ -22,6 +22,7 @@ white="\033[00;37m"
 WHITE="\033[01;37m"
 NC="\033[00m"
 HOSTNAME=$(uname -n)
+IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 
 if [[ "$EUID" -ne 0 ]]; then
 	echo "Sorry, you need to run this as root"
@@ -373,6 +374,7 @@ EOF
 						sed -i '/-A INPUT -i lo -j ACCEPT/a -A INPUT -p tcp -m state --state NEW -m tcp --dport 3333 -j ACCEPT' /etc/sysconfig/iptables
 						service iptables restart
 						echo ""
+						echo "Connect to mongo 172.17.0.1:27017 or $IP:27017"
 						echo "MongoStudio running on port 3333"
 						echo "User: admin Password: 1234"
 						echo ""
