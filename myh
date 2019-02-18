@@ -813,7 +813,7 @@ EOF
 			echo ""
 			case $option in
 			1)
-				read -p "Do you want to install ELK 6.2.x? [y/n]: " -e -i n SETUPELK
+				read -p "Do you want to install ELK 6.x? [y/n]: " -e -i n SETUPELK
 				if [[ "$SETUPELK" == 'y' ]]; then
 					if [[ ! -e /usr/bin/java ]]; then
 						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
