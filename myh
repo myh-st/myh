@@ -813,7 +813,7 @@ EOF
 			echo ""
 			case $option in
 			1)
-				read -p "Do you want to install ELK 6.x? [y/n]: " -e -i n SETUPELK
+				read -p "Do you want to install ELK 7.x? [y/n]: " -e -i n SETUPELK
 				if [[ "$SETUPELK" == 'y' ]]; then
 					if [[ ! -e /usr/bin/java ]]; then
 						yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
@@ -822,9 +822,9 @@ EOF
 					fi
 					rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 					cat <<EOT >/etc/yum.repos.d/elasticsearch.repo
-[elasticsearch-6.x]
-name=Elasticsearch repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[elasticsearch-7.x]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -833,9 +833,9 @@ type=rpm-md
 EOT
 					yum install elasticsearch -y
 					cat <<EOT >/etc/yum.repos.d/kibana.repo
-[kibana-6.x]
-name=Kibana repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[kibana-7.x]
+name=Kibana repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -844,9 +844,9 @@ type=rpm-md
 EOT
 					yum install kibana -y
 					cat <<EOT >/etc/yum.repos.d/logstash.repo
-[logstash-6.x]
-name=Elastic repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[logstash-7.x]
+name=Elastic repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -879,9 +879,9 @@ EOT
 					else
 						rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 						cat <<EOT >/etc/yum.repos.d/elasticsearch.repo
-[elasticsearch-6.x]
-name=Elasticsearch repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[elasticsearch-7.x]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -890,9 +890,9 @@ type=rpm-md
 EOT
 						yum install elasticsearch -y
 						cat <<EOT >/etc/yum.repos.d/kibana.repo
-[kibana-6.x]
-name=Kibana repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[kibana-7.x]
+name=Kibana repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -924,9 +924,9 @@ EOT
 					else
 						rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 						cat <<EOT >/etc/yum.repos.d/logstash.repo
-[logstash-6.x]
-name=Elastic repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[logstash-7.x]
+name=Elastic repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
